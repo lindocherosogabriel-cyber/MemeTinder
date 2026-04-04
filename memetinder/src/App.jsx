@@ -1,13 +1,18 @@
 import { useState } from 'react'
 import './App.css'
-import Tindercard from './components/tindercard'
+import {Route,Router,BrowserRouter,useNavigate, Routes} from 'react-router-dom'
+import Register from './components/register'
+import Landing from './components/landing'
+import Dashboard from './components/dashboard'
 function App() {
-
   return (
-   <div className='flex w-full h-screen justify-center items-center'>
-      <Tindercard/>
-      <input type="file" className='absolute right-[2%] top-[2%] w-[30%] bg-red-500 rounded-[4px] p-1.5 text-white' accept='image/*'/>
-   </div>
+     <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Landing/>} />
+          <Route path='/register' element={<Register/>} />
+          <Route path='/dashboard' element={<Dashboard/>} />
+        </Routes>
+      </BrowserRouter>
   )
 }
 
