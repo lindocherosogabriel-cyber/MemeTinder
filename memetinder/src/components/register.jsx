@@ -1,5 +1,8 @@
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import Cookies from 'js-cookie'
 export default function Register() {
+    const navigate = useNavigate();
     async function onSubmit(event) {
      event.preventDefault();
 
@@ -11,10 +14,23 @@ export default function Register() {
                 headers: {
                     'Content-Type':'application/json'
                 }
-            })
-            console.log("Sucess:",resp.data)
+            });
+            let dataJSON = JSON.stringify(resp.data)
+            Cookies.set("LocalUser-Data",dataJSON)
+            console.log("Sucess:",dataJSON)
+            
+           let AuthResp = await axios.post('http://localhost:3001/api/login',dataJSON,{
+                headers: {
+                    'Content-Type':'application/json',
+                }
+            });
+
+            if(AuthResp.status == 200) {
+                navigate("/dashboard")
+            }
+
         }catch(error){
-            console.error("Erro ao tentar mandar um post a requisição!")
+           console.error(error)
         }
 
 
