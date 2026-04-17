@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsx watch ./src/API.ts",
-    "start": "npx tsc"
+    "build": "npx tsc",
+    "start": "node ./dist/API.js"
   },
   "keywords": [],
   "author": "",
@@ -23,7 +24,8 @@
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.3.3",
     "tsc": "^2.0.4",
-    "tsx": "^4.21.0"
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.3"
   },
   "devDependencies": {
     "@types/express": "^5.0.6",
