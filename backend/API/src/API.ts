@@ -59,7 +59,7 @@ app.get("/api/register-user/:api_key", async (req:Request,res:Response) => {
     try{
        let {api_key} = req.params;
        if(api_key === API_KEY) {
-         const user = await User.find()
+         const user = await User.find();
          res.json(user);
        }else{
         return res.status(500).json({error:"Lugar de vagabundo é na cadeia pare de tentar acessar os dados dos meus usúarios!"})
