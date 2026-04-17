@@ -1,8 +1,11 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 dotenv.config();
-let MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/memeDB";
+let MONGO_URI = String(process.env.MONGO_URI);
 export default async function connectDB() {
+    if (!MONGO_URI) {
+        console.error("Erro Ao carregar a váriavel de ambiente!");
+    }
     try {
         await mongoose.connect(MONGO_URI);
         console.log("Conecção estabelecida com sucesso!");
