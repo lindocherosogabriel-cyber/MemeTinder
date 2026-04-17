@@ -9,7 +9,10 @@ export default async function connectDB() {
     try{
         await mongoose.connect(MONGO_URI);
         console.log("Conecção estabelecida com sucesso!")
-    }catch(error) {
+    }catch(error:any) {
+
+        console.error("Error:",error.message);
+        
         throw new Error("não foi possivel se conectar ao Banco de Dados");
     }
 }

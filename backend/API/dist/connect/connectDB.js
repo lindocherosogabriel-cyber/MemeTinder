@@ -8,6 +8,7 @@ export default async function connectDB() {
         console.log("Conecção estabelecida com sucesso!");
     }
     catch (error) {
+        console.error("Error:", error.message);
         throw new Error("não foi possivel se conectar ao Banco de Dados");
     }
 }
