@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsx watch ./src/API.ts",
-    "build": "npx tsc",
+    "build": "tsc",
     "start": "node ./dist/API.js"
   },
   "keywords": [],
@@ -23,13 +23,12 @@
     "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.3.3",
-    "tsc": "^2.0.4",
-    "tsx": "^4.21.0",
-    "typescript": "^6.0.3"
+    "tsx": "^4.21.0"
   },
   "devDependencies": {
     "@types/express": "^5.0.6",
     "@types/mongoose": "^5.11.96",
-    "@types/node": "^25.5.2"
+    "@types/node": "^25.5.2",
+    "typescript": "^6.0.3"
   }
 }
