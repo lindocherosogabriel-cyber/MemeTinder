@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie'
+import { Link } from "react-router-dom";
 export default function Register() {
     const navigate = useNavigate();
     async function onSubmit(event) {
@@ -47,20 +48,21 @@ export default function Register() {
                 <form className='flex flex-col w-full h-full justify-center items-center text-white' onSubmit={onSubmit}>
                     <label>Nickname</label>
                     
-                    <input type="text" placeholder='entry your nickname' name="nickname" className='bg-red-700 rounded-[3px] text-center justify-center'/>
+                    <input type="text" placeholder='entry your nickname' name="nickname" className='bg-red-700 rounded-[3px] text-center justify-center' required/>
                                         
                     <label>Password</label>
                                         
-                    <input type="password" placeholder='entry your password' name="password" className='bg-red-700 rounded-[3px] text-center justify-center' />
+                    <input type="password" placeholder='entry your password' name="password" className='bg-red-700 rounded-[3px] text-center justify-center' required />
                                         
-                    <label >Email</label>
+                    <label>Email</label>
                    
-                    <input type="email" placeholder='entry your email' name="email" className='bg-red-700 rounded-[3px] text-center justify-center'/>
+                    <input type="email" placeholder='entry your email' name="email" className='bg-red-700 rounded-[3px] text-center justify-center' required/>
                     <br />
                     <br />
                     <button type="submit" className='bg-red-700 w-[70%] rounded-[2px]' >register</button>
                 </form>
             </div>
+            <Link to="/login" className="text-red-700 mt-5 hover:underline">Already have an account? Login here!</Link>
         </div>
     )
 }
