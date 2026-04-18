@@ -1,18 +1,21 @@
 import { useRef } from "react"
 import axios from 'axios';
-import dotenv from 'dotenv'
 export default function ContentPainel({ url,exitFunc }) {
     async function onSubmit(e) {
         try {
             e.preventDefault();
-            dotenv.config();
-            const HOST = process.env.HOST
+            let HOST = import.meta.env.VITE_HOST;
             const formData = new FormData(e.currentTarget);
             const urlString = String(url)
             formData.append("midia",urlString);
 
             const data = Object.fromEntries(formData.entries());
             
+            if(!HOST) {
+                console.error("HOST environment variable is not set");
+                return;
+            }
+
             let resp = await axios.post(`${HOST}/api/meme`,data,{
                 headers:{
                     'Content-Type':'application/json'
@@ -25,7 +28,7 @@ export default function ContentPainel({ url,exitFunc }) {
             // Lembre-se: tags <img> não enviam dados via FormData. 
             // Se precisar enviar a URL, use um <input type="hidden" name="url" value={url} />
         } catch (error) {
-            console.error("Erro ao tentar enviar o meme ao Banco de Dados!", error);
+            console.error("Erro ao tentar enviar o meme ao Banco de Dados!", error.message);
         }
     }
 
@@ -41,6 +44,7 @@ export default function ContentPainel({ url,exitFunc }) {
                         type="text" 
                         className="w-full border-2 border-red-300 rounded-xl p-2 outline-none focus:border-red-500" 
                         maxLength={80}
+                        required
                     />
 
                     <label className="font-semibold mt-2">Prévia</label>
@@ -56,6 +60,7 @@ export default function ContentPainel({ url,exitFunc }) {
                         className="w-full border-2 border-red-300 rounded-xl p-3 outline-none resize-none focus:border-red-500" 
                         maxLength={200} 
                         rows={7} // Definido para 7 linhas
+                        required
                     ></textarea>
 
                     <button 

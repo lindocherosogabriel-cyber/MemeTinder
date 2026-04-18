@@ -6,6 +6,9 @@ export default async function connectDB() {
     if (!MONGO_URI) {
         console.error("Erro Ao carregar a váriavel de ambiente!");
     }
+    else {
+        console.log(MONGO_URI);
+    }
     try {
         await mongoose.connect(MONGO_URI);
         console.log("Conecção estabelecida com sucesso!");

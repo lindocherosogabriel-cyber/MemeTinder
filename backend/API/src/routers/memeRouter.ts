@@ -1,8 +1,7 @@
 import express,{type Response,type Request} from 'express';
 import postMeme from '../controllers/memeCreate.js';
-import validateParams from '../connect/middleware/valParameters.js';
 const MemeRouter = express.Router();
 
-MemeRouter.post("/meme",validateParams,postMeme);
+MemeRouter.post("/meme",postMeme);
 
 export default MemeRouter
