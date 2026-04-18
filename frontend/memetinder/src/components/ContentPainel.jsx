@@ -1,14 +1,18 @@
-import { useRef } from "react"
+import { useState } from "react"
 import axios from 'axios';
+import ContentInDash from "./ContentInDash";
 export default function ContentPainel({ url,exitFunc }) {
+    const [content, setContent] = useState([]);
+    const [urlName,setUrl] = useState("");
     async function onSubmit(e) {
         try {
             e.preventDefault();
             let HOST = import.meta.env.VITE_HOST;
             const formData = new FormData(e.currentTarget);
             const urlString = String(url)
+            console.log(urlString)
             formData.append("midia",urlString);
-
+            formData.append("gostei",0);
             const data = Object.fromEntries(formData.entries());
             
             if(!HOST) {
@@ -36,11 +40,17 @@ export default function ContentPainel({ url,exitFunc }) {
         <div className="fixed inset-0 w-full h-screen flex justify-center items-center bg-black/50">
             {/* Aumentei um pouco a largura para o textarea não ficar apertado */}
             <div className="flex flex-col w-[90%] md:w-[40%] lg:w-[30%] bg-white rounded-2xl p-6 shadow-xl">
+                {content.map((meme) => (
+                    <ContentInDash
+                        key={meme.id}
+                        name={}
+                    />
+                ))}
                 <form onSubmit={onSubmit} className="flex flex-col w-full gap-2">
                     
                     <label className="font-semibold">Título</label>
                     <input 
-                        name="title" 
+                        name="titulo" 
                         type="text" 
                         className="w-full border-2 border-red-300 rounded-xl p-2 outline-none focus:border-red-500" 
                         maxLength={80}
@@ -56,7 +66,7 @@ export default function ContentPainel({ url,exitFunc }) {
 
                     <label className="font-semibold mt-2">Descrição</label>
                     <textarea 
-                        name="descricao" 
+                        name="description" 
                         className="w-full border-2 border-red-300 rounded-xl p-3 outline-none resize-none focus:border-red-500" 
                         maxLength={200} 
                         rows={7} // Definido para 7 linhas
