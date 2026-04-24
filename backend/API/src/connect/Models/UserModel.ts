@@ -18,6 +18,10 @@ const UserSchema = new Schema({
         type:String,
         required:[true,"Digite um email Válido!"],
         unique:[true,"Digite um email diferente!"]
+    },
+    "role":{
+        type:String,
+        required:[true,"Por Favor defina um Cargo!"]
     }
 })
 

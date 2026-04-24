@@ -3,18 +3,21 @@ declare const User: mongoose.Model<{
     nickname: string;
     password: string;
     email: string;
+    role: string;
 }, {}, {}, {
     id: string;
 }, mongoose.Document<unknown, {}, {
     nickname: string;
     password: string;
     email: string;
+    role: string;
 }, {
     id: string;
 }, mongoose.DefaultSchemaOptions> & Omit<{
     nickname: string;
     password: string;
     email: string;
+    role: string;
 } & {
     _id: mongoose.Types.ObjectId;
 } & {
@@ -25,16 +28,19 @@ declare const User: mongoose.Model<{
     nickname: string;
     password: string;
     email: string;
+    role: string;
 }, mongoose.Document<unknown, {}, {
     nickname: string;
     password: string;
     email: string;
+    role: string;
 }, {
     id: string;
 }, mongoose.DefaultSchemaOptions> & Omit<{
     nickname: string;
     password: string;
     email: string;
+    role: string;
 } & {
     _id: mongoose.Types.ObjectId;
 } & {
@@ -45,6 +51,7 @@ declare const User: mongoose.Model<{
     nickname: string;
     password: string;
     email: string;
+    role: string;
 } & {
     _id: mongoose.Types.ObjectId;
 } & {
@@ -53,6 +60,7 @@ declare const User: mongoose.Model<{
     nickname: string;
     password: string;
     email: string;
+    role: string;
 } & {
     _id: mongoose.Types.ObjectId;
 } & {
