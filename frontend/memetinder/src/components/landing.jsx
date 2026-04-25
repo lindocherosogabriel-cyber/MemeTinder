@@ -1,5 +1,7 @@
 import Tindercard from "./tindercard"
 import { useNavigate } from "react-router-dom"
+import axios from "axios";
+import { useEffect } from "react";
 export default function Landing() {
     const navigate = useNavigate();
     return(

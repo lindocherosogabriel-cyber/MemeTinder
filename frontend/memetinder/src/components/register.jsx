@@ -2,16 +2,18 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie'
 import { Link } from "react-router-dom";
+import getVariable from "../modules/ENV";
 export default function Register() {
     const navigate = useNavigate();
+    
     async function onSubmit(event) {
      event.preventDefault();
-
+     const HOST = getVariable("VITE_HOST");
      const formData = new FormData(event.currentTarget);
      const data = Object.fromEntries(formData.entries());
 
         try{
-            let resp = await axios.post('http://localhost:3001/api/register-user',data,{
+            let resp = await axios.post(`${HOST}/api/register-user`,data,{
                 headers: {
                     'Content-Type':'application/json'
                 }
@@ -20,7 +22,7 @@ export default function Register() {
             Cookies.set("LocalUser-Data",dataJSON)
             console.log("Sucess:",dataJSON)
             
-           let AuthResp = await axios.post('http://localhost:3001/api/login',dataJSON,{
+           let AuthResp = await axios.post(`${HOST}/api/login`,dataJSON,{
                 headers: {
                     'Content-Type':'application/json',
                 }

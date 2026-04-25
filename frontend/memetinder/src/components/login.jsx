@@ -2,21 +2,22 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie'
 import { Link } from "react-router-dom";
+import getVariable from "../modules/ENV";
 export default function Login() {
     const navigate = useNavigate();
     async function onSubmit(event) {
      event.preventDefault();
-
+     const HOST = getVariable('VITE_HOST');
      const formData = new FormData(event.currentTarget);
      const data = Object.fromEntries(formData.entries());
 
         try{
-           let resp = await axios.post('http://localhost:3001/api/login',data,{
+           let resp = await axios.post(`${HOST}/api/login`,data,{
                 headers: {
                     'Content-Type':'application/json',
                 }
             });
-            let resp2 = await axios.get('http://localhost:3001/api/token',{
+            let resp2 = await axios.get(`${HOST}/api/token`,{
                 headers: {
                     Authorization: `Bearer ${resp.data.token}`,
                 },

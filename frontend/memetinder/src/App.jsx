@@ -8,9 +8,11 @@ import Login from './components/login';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useEffect } from 'react'
+import getVariable from './modules/ENV'
 function App() {
   const navigate = useNavigate();
   useEffect(() =>{
+    const HOST = getVariable('VITE_HOST');
     let data = Cookies.get("LocalUser-Data");
     let isRoute = window.location.pathname.includes("register") || window.location.pathname.includes("login");
     async function LoadData() {
@@ -18,7 +20,7 @@ function App() {
       if(!isRoute) {
           if(data) {
             if(token) {
-              let resp = await axios.get("http://localhost:3001/api/token",{
+              let resp = await axios.get(`${HOST}/api/token`,{
                 headers:{
                   Authorization: `Bearer ${token}`,
                 }

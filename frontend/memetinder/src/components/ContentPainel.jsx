@@ -19,18 +19,17 @@ export default function ContentPainel({ url,exitFunc }) {
                 console.error("HOST environment variable is not set");
                 return;
             }
-
+            
             let resp = await axios.post(`${HOST}/api/meme`,data,{
                 headers:{
                     'Content-Type':'application/json'
                 }
             });
-
+            
+            localStorage.setItem("Meme",JSON.stringify(data.midia));
             console.log("Sucesso ao Postar o meme!");
             console.log(data)
             exitFunc();
-            // Lembre-se: tags <img> não enviam dados via FormData. 
-            // Se precisar enviar a URL, use um <input type="hidden" name="url" value={url} />
         } catch (error) {
             console.error("Erro ao tentar enviar o meme ao Banco de Dados!", error.message);
         }
@@ -40,12 +39,7 @@ export default function ContentPainel({ url,exitFunc }) {
         <div className="fixed inset-0 w-full h-screen flex justify-center items-center bg-black/50">
             {/* Aumentei um pouco a largura para o textarea não ficar apertado */}
             <div className="flex flex-col w-[90%] md:w-[40%] lg:w-[30%] bg-white rounded-2xl p-6 shadow-xl">
-                {content.map((meme) => (
-                    <ContentInDash
-                        key={meme.id}
-                        name={}
-                    />
-                ))}
+               
                 <form onSubmit={onSubmit} className="flex flex-col w-full gap-2">
                     
                     <label className="font-semibold">Título</label>

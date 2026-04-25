@@ -8,6 +8,7 @@ import tokenValidation from './auth/middleware/authMiddleware.js';
 import User from './connect/Models/UserModel.js';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import session from 'express-session';
 const app = express();
 dotenv.config();
 const PORT = process.env.PORT;
@@ -16,6 +17,12 @@ connectDB();
 app.use(express.json());
 app.use(cors({
     origin: 'http://localhost:5173'
+}));
+app.use(session({
+    secret: `${API_KEY}`,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: false },
 }));
 app.use("/api", Authrouter);
 app.use("/api", MemeRouter);
@@ -46,6 +53,15 @@ app.get("/api/meme/:id", (req, res, next) => {
     }
     catch (error) {
         next(error);
+    }
+});
+app.get("/api/meme", async (req, res) => {
+    try {
+        const memes = await memeModel.find();
+        res.status(200).json(memes);
+    }
+    catch (error) {
+        res.status(404).json({ error: "Erro ao procurar todos os memes" });
     }
 });
 app.get("/api/register-user/:api_key", async (req, res) => {

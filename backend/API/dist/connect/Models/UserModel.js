@@ -18,6 +18,7 @@ const UserSchema = new Schema({
     },
     "role": {
         type: String,
+        default: "normal",
         required: [true, "Por Favor defina um Cargo!"]
     }
 });
