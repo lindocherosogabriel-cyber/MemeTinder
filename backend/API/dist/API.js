@@ -99,7 +99,12 @@ app.delete("/api/varrer/:api_key", async (req, res) => {
     }
 });
 app.delete("/api/varrerMemes/", async (req, res) => {
-    await memeModel.deleteMany({});
+    try {
+        await memeModel.deleteMany({});
+    }
+    catch (error) {
+        res.status(500).json({ error: "Erro ao tentar varrer os memes todos." });
+    }
 });
 app.get("/api/token", tokenValidation, (req, res) => {
     res.status(200).json({ message: "Token Válido!" });
