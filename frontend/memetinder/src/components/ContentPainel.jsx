@@ -1,7 +1,7 @@
 import { useState } from "react"
 import axios from 'axios';
 import ContentInDash from "./ContentInDash";
-export default function ContentPainel({ url,exitFunc }) {
+export default function ContentPainel({ exitFunc }) {
     const [content, setContent] = useState([]);
     const [urlName,setUrl] = useState("");
     async function onSubmit(e) {
@@ -9,9 +9,7 @@ export default function ContentPainel({ url,exitFunc }) {
             e.preventDefault();
             let HOST = import.meta.env.VITE_HOST;
             const formData = new FormData(e.currentTarget);
-            const urlString = String(url)
-            console.log(urlString)
-            formData.append("midia",urlString);
+            formData.append("midia",originalURL);
             formData.append("gostei",0);
             const data = Object.fromEntries(formData.entries());
             
@@ -22,11 +20,11 @@ export default function ContentPainel({ url,exitFunc }) {
             
             let resp = await axios.post(`${HOST}/api/meme`,data,{
                 headers:{
-                    'Content-Type':'application/json'
+                    'Content-Type':'multipart/form-data'
                 }
             });
             
-            localStorage.setItem("Meme",JSON.stringify(data.midia));
+            localStorage.setItem("Meme",JSON.stringify(resp.data.url));
             console.log("Sucesso ao Postar o meme!");
             console.log(data)
             exitFunc();
@@ -53,7 +51,7 @@ export default function ContentPainel({ url,exitFunc }) {
 
                     <label className="font-semibold mt-2">Prévia</label>
                     <img 
-                        src={url} 
+                        src="" 
                         alt="Preview" 
                         className="w-full h-48 max-h-[300px] object-scale-down rounded-2xl border border-gray-200" 
                     />
