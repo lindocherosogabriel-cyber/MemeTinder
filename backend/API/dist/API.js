@@ -27,16 +27,10 @@ app.use(session({
 app.use("/api", Authrouter);
 app.use("/api", MemeRouter);
 app.use("/api", UserRouter);
-app.get("/api/meme/:api_key", async (req, res) => {
+app.get("/api/meme", async (req, res) => {
     try {
-        let { api_key } = req.params;
-        if (api_key === API_KEY) {
-            const meme = await memeModel.find();
-            res.json(meme);
-        }
-        else {
-            return res.status(500).json({ error: "Vá caçar outra coisa para fazer! em vez de ficar querendo manipular as postagens dos usúarios!" });
-        }
+        const meme = await memeModel.find();
+        res.json(meme);
     }
     catch (error) {
         res.status(500).json({ error: "Error ao procurar Memes!" });

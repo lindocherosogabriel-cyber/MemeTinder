@@ -1,5 +1,6 @@
 import memeModel from "../connect/Models/MemeModel.js";
 import {} from 'express';
+import multer from 'multer';
 export default async function postMeme(req, res) {
     try {
         const { description, titulo, midia, gostei } = req.body;

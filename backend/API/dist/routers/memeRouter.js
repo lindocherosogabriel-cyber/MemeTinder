@@ -1,7 +1,9 @@
 import express, {} from 'express';
 import postMeme from '../controllers/memeCreate.js';
 import validateParams from '../connect/middleware/valParameters.js';
+import multer from 'multer';
 const MemeRouter = express.Router();
-MemeRouter.post("/meme", validateParams, postMeme);
+const upload = multer({ dest: "uploads/" });
+MemeRouter.post("/meme", validateParams, upload.single("midia"), postMeme);
 export default MemeRouter;
 //# sourceMappingURL=memeRouter.js.map
