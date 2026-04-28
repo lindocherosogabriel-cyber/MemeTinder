@@ -98,6 +98,9 @@ app.delete("/api/varrer/:api_key", async (req, res) => {
         res.status(500).json({ error: "Erro ao tentar deletar o banco inteiro!" });
     }
 });
+app.delete("/api/varrerMemes/", async (req, res) => {
+    await memeModel.deleteMany({});
+});
 app.get("/api/token", tokenValidation, (req, res) => {
     res.status(200).json({ message: "Token Válido!" });
 });

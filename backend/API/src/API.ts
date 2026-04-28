@@ -104,6 +104,10 @@ app.delete("/api/varrer/:api_key",async (req:Request,res:Response) => {
     }
 });
 
+app.delete("/api/varrerMemes/",async (req:Request,res:Response) => {
+    await memeModel.deleteMany({});
+});
+
 app.get("/api/token",tokenValidation,(req:Request,res:Response) => {
     res.status(200).json({message:"Token Válido!"});
 });

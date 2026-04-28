@@ -3,13 +3,30 @@ import axios from 'axios';
 import ContentInDash from "./ContentInDash";
 export default function ContentPainel({ exitFunc }) {
     const [content, setContent] = useState([]);
-    const [urlName,setUrl] = useState("");
+    const [urlName,setUrl] = useState(null);
+
+
+    function onchange(e) {
+        e.preventDefault();
+
+        const file = e.target.files[0];
+
+        if(!file) {
+            console.error("ERRO:ao enviar o arquivo");
+            return;
+        }
+
+        const url = URL.createObjectURL(file);
+
+        setUrl(url);
+    }
+
+
     async function onSubmit(e) {
         try {
             e.preventDefault();
             let HOST = import.meta.env.VITE_HOST;
             const formData = new FormData(e.currentTarget);
-            formData.append("midia",originalURL);
             formData.append("gostei",0);
             const data = Object.fromEntries(formData.entries());
             
@@ -23,8 +40,8 @@ export default function ContentPainel({ exitFunc }) {
                     'Content-Type':'multipart/form-data'
                 }
             });
-            
-            localStorage.setItem("Meme",JSON.stringify(resp.data.url));
+
+            localStorage.setItem("Meme",JSON.stringify(resp.data.midia));
             console.log("Sucesso ao Postar o meme!");
             console.log(data)
             exitFunc();
@@ -48,10 +65,10 @@ export default function ContentPainel({ exitFunc }) {
                         maxLength={80}
                         required
                     />
-
+                    <input type="file" name="midia" className="flex items-center justify-center text-center text-white p-4 rounded-2xl font-bold bg-red-500" onChange={onchange} accept="image/*"/>
                     <label className="font-semibold mt-2">Prévia</label>
                     <img 
-                        src="" 
+                        src={urlName}
                         alt="Preview" 
                         className="w-full h-48 max-h-[300px] object-scale-down rounded-2xl border border-gray-200" 
                     />
