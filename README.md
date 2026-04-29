@@ -1,2 +1,1 @@
-"# MemeTinder" 
-"# MemeTinder" 
+Memetinder a rede social dos memes!
