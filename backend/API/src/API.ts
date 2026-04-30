@@ -108,7 +108,7 @@ app.delete("/api/varrerMemes/",async (req:Request,res:Response) => {
     try{
         await memeModel.deleteMany({});
     }catch(error) {
-        res.status(500).json({error:"Erro ao tentar varrer os memes todos."})
+        res.status(500).json({error:"Error:Erro ao tentar varrer os memes todos."})
     }
 });
 

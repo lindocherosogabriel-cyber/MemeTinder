@@ -1,6 +1,5 @@
-import express,{type Response,type Request} from 'express';
+import express,{type Response,type Request,type NextFunction} from 'express';
 import postMeme from '../controllers/memeCreate.js';
-import validateParams from '../connect/middleware/valParameters.js';
 import multer from 'multer';
 const MemeRouter = express.Router();
 
@@ -17,6 +16,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage});
 
-MemeRouter.post("/meme",validateParams,upload.single("midia"),postMeme);
+MemeRouter.post("/meme",postMeme,upload.single("midia"),(req:Request,res:Response,next:NextFunction) => {
+    console.log(req.file)
+});
 
 export default MemeRouter;
