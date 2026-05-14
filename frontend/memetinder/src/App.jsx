@@ -28,13 +28,13 @@ function App() {
               console.log(resp.data);
             }else{
               let credentials = Cookies.get("LocalUser-Data");
-              let resp = await axios.post("http://localhost:3001/api/login", credentials,{
+              let resp = await axios.post(`${HOST}/api/login`, credentials,{
                 headers:{
                   "Content-Type": "application/json",
                 }
               });
               if(resp) {
-                var Resp = await axios.get("http://localhost:3001/api/token",{
+                var Resp = await axios.get(`${HOST}/api/token`,{
                   headers:{
                     Authorization: `Bearer ${resp.data.token}`,
                   }

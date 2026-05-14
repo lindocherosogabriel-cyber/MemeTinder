@@ -1,12 +1,12 @@
 import { useState } from "react"
 import axios from 'axios';
 import ContentInDash from "./ContentInDash";
+import getVariable from "../modules/ENV";
 export default function ContentPainel({ exitFunc }) {
     const [content, setContent] = useState([]);
     const [urlName,setUrl] = useState(null);
-
-
-    function onchange(e) {
+    const HOST = getVariable("VITE_HOST")
+    async function onchange(e) {
         e.preventDefault();
 
         const file = e.target.files[0];
@@ -15,10 +15,8 @@ export default function ContentPainel({ exitFunc }) {
             console.error("ERRO:ao enviar o arquivo");
             return;
         }
-
-        const url = URL.createObjectURL(file);
-
-        setUrl(url);
+        const previewURL = URL.createObjectURL(file);
+        setUrl(previewURL);
     }
 
 
@@ -29,22 +27,18 @@ export default function ContentPainel({ exitFunc }) {
             const formData = new FormData(e.currentTarget);
             formData.append("gostei",0);
             const data = Object.fromEntries(formData.entries());
-            
             if(!HOST) {
                 console.error("HOST environment variable is not set");
                 return;
             }
             
-            let resp = await axios.post(`${HOST}/api/meme`,data,{
+            let memeResp = await axios.post(`${HOST}/api/meme`,data,{
                 headers:{
-                    'Content-Type':'multipart/form-data'
+                    'Content-Type': 'application/json',
                 }
             });
-
-            localStorage.setItem("Meme",JSON.stringify(resp.data.midia));
-            console.log("Sucesso ao Postar o meme!");
-            console.log(data)
-            exitFunc();
+            console.log(midiaResp.data);
+            exitFunc(false);
         } catch (error) {
             console.error("Erro ao tentar enviar o meme ao Banco de Dados!", error.message);
         }
